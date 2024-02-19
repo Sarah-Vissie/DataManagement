@@ -6,11 +6,32 @@ install.packages("readxl")
 library(readxl)
 Batisdat <- read_xlsx("Raw Data Unedited.xlsx", sheet = "Sheet2")
 
-class(Batisdat$`Success:`)
+#Renaming Coloumn names:
 
-BatisdatSDS <- select("Success:", "Duration :", "Male/Female:") 
+Batisdat_tidy <- Batisdat %>% 
+  rename(
+    subcat = `Subcategory:`,
+    succ = `Success:`,
+    dur = `Duration :`,
+    sex = `Male/Female:`)
+
+#Reformatting dur into seconds; removing the date that was bought over from excel
+
+class(Batisdat_tidy$dur)
+
+#The Data type of dur is POSIXct and POSIXt
+
+
+
+Batisdat_tidy_dur <- as.difftime(Batisdat_tidy$dur, units = "secs")
 
 #Pivoting data into wide format
+
+Batisdat_pivot <- Batisdat_tidy %>%
+  select("succ", "dur", "sex") %>%
+  pivot_longer(cols = c("succ", "dur", "sex"),
+               names_to = "Variable", values_to = "Values")
+
 
 Batisdat_pivot <- Batisdat %>%
   select("Duration :", "Success:", "Male/Female:") %>%
