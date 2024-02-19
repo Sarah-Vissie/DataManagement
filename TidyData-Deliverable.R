@@ -1,4 +1,4 @@
-library(pacman)
+library(tidyverse)
 
 Batisdat <- read_xlsx("Raw Data Unedited.xlsx", sheet = "Sheet2")
 
@@ -8,14 +8,22 @@ Batisdat <- read_xlsx("Raw Data Unedited.xlsx", sheet = "Sheet2")
 
 class(Batisdat$`Success:`)
 
+BatisdatSDS <- select("Success:", "Duration :", "Male/Female:") 
+
 #Pivoting data into wide format
-Batisdat %>%
-  select("Duration :","Success:","Male/Female:")
-  pivot_longer(cols = c(Duration :, Success:, Male/Female:), 
-               names_to = "Variable", values_to = "Values")
-?pivot_longer
+
+Batisdat_pivot <- Batisdat %>%
+  select("Duration :", "Success:", "Male/Female:") %>%
+  pivot_longer(cols = c("Duration :", "Success:", "Male/Female:"), 
+               names_to = "Variable", values_to = "Values") %>%
 
 
+
+
+  
+  
+#Practicing with data. Decided to leave it so I could come back to it.
+  
 #splitting my data into sex groups
 #Take Note: When a common name as symbols like (/:) place it in single reverse colon (``)
 
