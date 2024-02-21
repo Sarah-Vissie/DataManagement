@@ -34,32 +34,3 @@ Batisdat_t_pivot <- Batisdat_tidy %>%
 
 Batisdat_t_pivot
 
-
-
-
-
-
-
-  
-  
-
-
-
-
-  
-  
-#Practicing with data. Decided to leave it so I could come back to it.
-  
-#splitting my data into sex groups
-#Take Note: When a common name as symbols like (/:) place it in single reverse colon (``)
-
-library(dplyr)
-
-male <- filter(Batisdat, `Male/Female:` == "M")
-
-female <- filter(Batisdat, `Male/Female:` == "F")
-
-
-sum_male_succ <- sum(male$`Success:`)
-
-View(sum_male_succ)
