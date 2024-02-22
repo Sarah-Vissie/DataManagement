@@ -17,12 +17,12 @@ Batisdat_tidy <- Batisdat %>%
 
 Batisdat_tidy$dur <- as.numeric(format(as.POSIXct(Batisdat_tidy$dur, format="%Y-%m-%d %H:%M:%S"), "%S"))
 
-#Pivoting "succ", "dur_seconds" and "sex" longer
+#Pivoting "succ", "dur" and "sex" longer
 
 Batisdat_t_pivot <- Batisdat_tidy %>%
-  select("succ", "dur_seconds", "sex") %>%
+  select("succ", "dur", "sex") %>%
 
-  pivot_longer(cols = c(succ, dur_seconds), 
+  pivot_longer(cols = c(succ, dur), 
                names_to = "Variable", values_to = "Values") %>%
   ggplot() +
   geom_boxplot(aes(x = Variable, y = log(Values + 1))) + #Using log(+1) to handle all the zeros
